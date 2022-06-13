@@ -1,6 +1,8 @@
-import requests, ast
+import requests, json
+sis = requests.Session()
 def solve(sid):
-    r = requests.get(f'https://onnxrt.herokuapp.com/solve?sid={sid}')
-    resp = dict(ast.literal_eval(r.text))
-    captxt, capsid = resp['text'], resp['sid']
-    return captxt
+
+    r = sis.get(url=f'https://onnxrt.herokuapp.com/solve?sid={sid}').json()
+    captxt, capsid = r['text'], r['sid']
+
+    return captxt, capsid
